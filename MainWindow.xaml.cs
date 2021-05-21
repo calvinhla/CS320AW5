@@ -35,10 +35,13 @@ namespace Assignment5
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            button.Content = Markers[CurrentPlayer];
+            if ((string)button.Content == null)
+            {
+                button.Content = Markers[CurrentPlayer];
 
-            var (row, col) = GetButtonPosition(button);
-            CheckTurn(row, col);
+                var (row, col) = GetButtonPosition(button);
+                CheckTurn(row, col);
+            }
         }
 
         private void uxNewGame_Click(object sender, RoutedEventArgs e)
@@ -49,7 +52,7 @@ namespace Assignment5
             
             foreach (Button button in uxGrid.Children)
             {
-                button.Content = "";
+                button.Content = null;
             }
 
             uxGrid.IsEnabled = true;
@@ -115,7 +118,7 @@ namespace Assignment5
         {
             var checkMarker = GetGridButton(r, 0);
 
-            if ((string)checkMarker.Content != "")
+            if (checkMarker.Content != null)
             {
                 for (var col = 1; col < 3; col++)
                 {
@@ -136,7 +139,7 @@ namespace Assignment5
         {
             var checkMarker = GetGridButton(0, c);
 
-            if ((string)checkMarker.Content != "")
+            if (checkMarker.Content != null)
             {
                 for (var row = 1; row < 3; row++)
                 {
@@ -160,7 +163,7 @@ namespace Assignment5
 
             var checkMarker = (string)GetGridButton(1, 1).Content;
 
-            if (checkMarker != "")
+            if (checkMarker != null)
             {
                 var leftDiag = ((string)GetGridButton(0, 0).Content == checkMarker) && (checkMarker == (string)GetGridButton(2, 2).Content);
                 var rightDiag = ((string)GetGridButton(2, 0).Content == checkMarker) && (checkMarker == (string)GetGridButton(0,2).Content);
